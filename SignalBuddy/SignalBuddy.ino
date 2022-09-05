@@ -79,6 +79,7 @@ void setup() {
   // initialize serial communication
   Serial.begin(115200);
   while (!Serial) {}; // wait for serial port to connect
+  runDefaultPreset();
   showMenu();
 }
 

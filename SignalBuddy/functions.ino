@@ -19,11 +19,16 @@ ISR(TIMER0_COMPA_vect){
         break;
 
       case PULSE:
-        if (pulseTimer<presets[currentPreset].pulseDuration){newValue = 255;}
-        else{newValue = 0;}
-        pulseTimer++;
-        if (pulseTimer>=interPulseInterval){pulseTimer -= interPulseInterval;}
-        break;
+        if (presets[currentPreset].pulseDuration == -1) {
+          pulseTimer++;
+          newValue = 255;
+        } else {
+          if (pulseTimer<presets[currentPreset].pulseDuration){newValue = 255;}
+          else{newValue = 0;}
+          pulseTimer++;
+          if (pulseTimer>=interPulseInterval){pulseTimer -= interPulseInterval;}
+          break;
+        }
     }
   
 
@@ -38,7 +43,7 @@ ISR(TIMER0_COMPA_vect){
 
     // check whether light should be turned off
     signalTimer++;
-    if (signalTimer>presets[currentPreset].duration){
+    if (presets[currentPreset].duration != -1 && signalTimer>presets[currentPreset].duration){
       isSignalOn = false;
       newValue = 0;
     }
@@ -84,4 +89,11 @@ void startSignal(){
 void updateFrequency(){
    deltaIndex = sineSmps*presets[currentPreset].frequency/1000; // how much to advance in the sin lookup table every ms
    interPulseInterval = round(1000.0/presets[currentPreset].frequency);
+}
+
+void runDefaultPreset(){
+  currentPreset = 4;
+  Serial.println(F("Run default configuration now..."));  
+  updateFrequency();
+  startSignal();
 }

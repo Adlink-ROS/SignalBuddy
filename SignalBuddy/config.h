@@ -41,16 +41,16 @@ presets[3].rampUpTime = 150;
 presets[3].rampDownTime = 300;
 presets[3].pulseDuration = 50;
 
-// preset 3
+// preset 4
 presets[4].type = PULSE;
-presets[4].duration = 1000;
+presets[4].duration = -1;
 presets[4].amplitude = .85;
-presets[4].frequency = 10;
+presets[4].frequency = 1;
 presets[4].rampUpTime = 0;
 presets[4].rampDownTime = 0;
 presets[4].pulseDuration = 50;
 
-// preset 3
+// preset 5
 presets[5].type = PULSE;
 presets[5].duration = 800;
 presets[5].amplitude = .55;

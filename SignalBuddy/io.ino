@@ -67,12 +67,17 @@ void getUserInput(){
         while (Serial.available() == 0)  {}
         inputInt = Serial.parseInt();
         while (Serial.available()){Serial.read();} // throw away extra bytes
+#if 0        
         if (inputInt>0 && inputInt<=30000){
           presets[currentPreset].duration = inputInt;
           showMenu();
         }else{
           Serial.println(F("ERROR: must enter an integer >=1 and <=30000!"));
         }
+#else
+        presets[currentPreset].duration = inputInt;
+        showMenu();
+#endif
         break;
 
       
