@@ -56,6 +56,8 @@ void setup() {
   pinMode(triggerPin, INPUT);
   pinMode(ledPin, OUTPUT);
   analogWrite(ledPin, 0);
+  pinMode(ledPin-1, OUTPUT);
+  analogWrite(ledPin-1, 0);
 
   // initialize timer0 interrupt
   cli();//disable interrupts
@@ -91,8 +93,10 @@ void loop() {
   if (updated) {
     if (ledAmplitudeScaling){
       analogWrite(ledPin, newValue * presets[currentPreset].amplitude);
+      analogWrite(ledPin-1, newValue * presets[currentPreset].amplitude);
     }else{
       analogWrite(ledPin, newValue);
+      analogWrite(ledPin-1, newValue);
     }
     dac.setVoltage(constrain(round(newValue * bitConversion * presets[currentPreset].amplitude), 0, 4095), false);
     updated = false;
